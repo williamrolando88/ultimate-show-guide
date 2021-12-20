@@ -17,6 +17,10 @@ module.exports = {
         exclude: /node_modules/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   plugins: [
@@ -29,8 +33,8 @@ module.exports = {
   optimization: {
     minimizer: ['...', new CssMinimizerPlugin()],
   },
-  output:{
-    clean: true
+  output: {
+    clean: true,
   },
   devtool: 'source-map',
 };
