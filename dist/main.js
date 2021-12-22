@@ -41,6 +41,49 @@ const getAPI = async url => {
 
 /***/ }),
 
+/***/ "./src/comments.js":
+/*!*************************!*\
+  !*** ./src/comments.js ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderComments": () => (/* binding */ renderComments),
+/* harmony export */   "getCommentsFromAPI": () => (/* binding */ getCommentsFromAPI),
+/* harmony export */   "appendComments": () => (/* binding */ appendComments)
+/* harmony export */ });
+const getCommentsFromAPI = async showID => {
+  const response = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/DUygu2IA853rbrNq5k3K/comments?item_id=${showID}`);
+  const userComments = await response.json();
+  return userComments;
+};
+
+const renderComments = arr => {
+  const commentHTML = arr.map(com => {
+    const {
+      username,
+      comment,
+      creation_date: creationDate
+    } = com;
+    const commentHTML = document.createElement('span');
+    commentHTML.textContent = `${creationDate} ${username}: ${comment}`;
+    return commentHTML;
+  });
+  return commentHTML;
+};
+
+function appendComments(popUpWindow, commentSpan) {
+  const commentCont = popUpWindow.querySelector('.commentCont');
+  commentSpan.forEach(com => {
+    commentCont.appendChild(com);
+  });
+}
+
+
+
+/***/ }),
+
 /***/ "./src/interactions.js":
 /*!*****************************!*\
   !*** ./src/interactions.js ***!
@@ -322,13 +365,39 @@ const renderPopUp = async url => {
   const seriesInfo = await (0,_apiRequest_js__WEBPACK_IMPORTED_MODULE_0__["default"])(url);
   const popUp = (0,_render_js__WEBPACK_IMPORTED_MODULE_2__.createHTML)(seriesInfo);
   const renderedHTML = (0,_render_js__WEBPACK_IMPORTED_MODULE_2__.openPopUp)(popUp);
+/* harmony import */ var _apiRequest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./apiRequest */ "./src/apiRequest.js");
+/* harmony import */ var _comments__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./comments */ "./src/comments.js");
+/* harmony import */ var _interactions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interactions */ "./src/interactions.js");
+/* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./render */ "./src/render.js");
+
+
+
+ // getAPI;
+// createHTML;
+// openPopUp;
+// closePopUP;
+
+const renderPopUp = async url => {
+  const seriesInfo = await (0,_apiRequest__WEBPACK_IMPORTED_MODULE_0__["default"])(url);
+  const popUp = (0,_render__WEBPACK_IMPORTED_MODULE_3__.createHTML)(seriesInfo);
+  const renderedHTML = (0,_render__WEBPACK_IMPORTED_MODULE_3__.openPopUp)(popUp);
   return renderedHTML;
 };
+/**
+ * This function is called in openPopupWindow at index.js
+ * @param {string} url -> take url of movie at selected index
+ * @param {string} name -> take name of movie at selected index
+ */
+
 
 const popUpInteraction = async (url, name) => {
   const popUpWindow = await renderPopUp(url);
   (0,_interactions_js__WEBPACK_IMPORTED_MODULE_1__["default"])(popUpWindow);
   console.log(name);
+  (0,_interactions__WEBPACK_IMPORTED_MODULE_2__["default"])(popUpWindow);
+  const commentInfo = await (0,_comments__WEBPACK_IMPORTED_MODULE_1__.getCommentsFromAPI)(name);
+  const commentSpan = (0,_comments__WEBPACK_IMPORTED_MODULE_1__.renderComments)(commentInfo);
+  (0,_comments__WEBPACK_IMPORTED_MODULE_1__.appendComments)(popUpWindow, commentSpan);
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (popUpInteraction);
@@ -356,25 +425,32 @@ const createHTML = ({
   medium,
   premiered
 }) => `
-    <i class="fas fa-times"></i>
+    <i class="fas fa-times self-end py-6 text-4xl"></i>
     <img src=${medium} alt="cover Image">
-    <h2>${name}</h2>
+    <h2 class='font-rockwell text-4xl font-bold py-6'>${name}</h2>
     <ul>
       <li>Language: ${language}</li>
-      <li>Official Site: ${officialSite}</li>
+      <li>Official Site: <a class='underline' href="${officialSite}">${officialSite}</a></li>
       <li>Rating: ${average}</li>
       <li>Premiered: ${premiered}</li>
     </ul>
-    <h3>Comments</h3>
-    <form>
-      <input placeholder='Your name here'>
-      <textarea placeholder ='Your insights here'></textarea>
-      <input type='button' value='Comment'>
+    <h3 class='font-rockwell text-2xl font-bold py-6'>Comments</h3>
+    <div class='commentCont flex flex-col'>
+    </div>
+    <h3 class='font-rockwell text-2xl font-bold py-6'>Add new comment</h3>
+    <form class='flex flex-col self-start items-start'>
+      <input class='mb-4' placeholder='Your name here' required>
+      <textarea placeholder ='Your insights here' required></textarea>
+      <input class='bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded mt-4' type='button' value='Comment'>
     </form>
     `;
 
 const openPopUp = obj => {
   const popUp = document.createElement('section');
+  Object.assign(popUp, {
+    className: 'flex flex-col overflow-y-scroll items-center border-2 border-gray-600 border-solid px-[20%] py-6 my-[50px]'
+  });
+  popUp.setAttribute('style', 'position : absolute; top: 65px; left: 20%; background-color: white');
   popUp.innerHTML = obj;
   main.appendChild(popUp);
   return popUp;
