@@ -20,4 +20,12 @@ function openPopupWindow(cardsContainer) {
 (async function main() {
   const cardsContainer = await renderSeries(movieList);
   openPopupWindow(cardsContainer);
-}());
+
+  const article = cardsContainer.querySelectorAll('article');
+  const likes = cardsContainer.querySelectorAll('i');
+  likes.forEach((like, index) => {
+    like.addEventListener('click', () => {
+      id = article[index].id;
+    });
+  });
+})();
