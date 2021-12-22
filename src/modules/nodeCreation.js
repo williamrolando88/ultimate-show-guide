@@ -1,5 +1,6 @@
 const cardStructure = (serie) => ({
   tag: 'article',
+  id: serie.id,
   class: ['serie', 'flex', 'flex-col'],
   children: [
     {
@@ -30,7 +31,7 @@ const cardStructure = (serie) => ({
             {
               tag: 'p',
               class: [],
-              textContent: '2 likes',
+              textContent: `${serie.likes} likes`,
             },
           ],
         },
@@ -46,6 +47,9 @@ const cardStructure = (serie) => ({
 
 const cardNode = (element) => {
   const node = document.createElement(element.tag);
+  if (element.id) {
+    node.id = element.id;
+  }
   if (element.class.length > 0) {
     node.classList.add(...element.class);
   }
@@ -65,15 +69,13 @@ const cardNode = (element) => {
   return node;
 };
 
-function appendCards(nodes) {
+export default function appendCards(cardsData) {
   const cardContainer = document.querySelector('#tv-series-container');
   while (cardContainer.firstChild) {
     cardContainer.removeChild(cardContainer.firstChild);
   }
-  nodes.forEach((node) => {
-    cardContainer.appendChild(node);
+  cardsData.forEach((data) => {
+    cardContainer.appendChild(cardNode(cardStructure(data)));
   });
   return cardContainer;
 }
-
-export { cardStructure, cardNode, appendCards };
