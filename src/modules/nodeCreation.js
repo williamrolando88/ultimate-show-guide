@@ -1,50 +1,48 @@
-const cardStructure = (serie) => {
-  return {
-    tag: 'article',
-    class: ['serie', 'flex', 'flex-col'],
-    children: [
-      {
-        tag: 'img',
-        class: [],
-        attribute: {
-          src: serie.cover,
-          alt: serie.name,
+const cardStructure = (serie) => ({
+  tag: 'article',
+  class: ['serie', 'flex', 'flex-col'],
+  children: [
+    {
+      tag: 'img',
+      class: [],
+      attribute: {
+        src: serie.cover,
+        alt: serie.name,
+      },
+    },
+    {
+      tag: 'div',
+      class: [],
+      children: [
+        {
+          tag: 'h2',
+          class: [],
+          textContent: serie.name,
         },
-      },
-      {
-        tag: 'div',
-        class: [],
-        children: [
-          {
-            tag: 'h2',
-            class: [],
-            textContent: serie.name,
-          },
-          {
-            tag: 'div',
-            class: ['flex', 'justify-between', 'items-baseline'],
-            children: [
-              {
-                tag: 'i',
-                class: ['fas', 'fa-heart', 'text-red-600'],
-              },
-              {
-                tag: 'p',
-                class: [],
-                textContent: '2 likes',
-              },
-            ],
-          },
-        ],
-      },
-      {
-        tag: 'button',
-        class: ['bg-stone-300'],
-        textContent: 'Comment',
-      },
-    ],
-  };
-};
+        {
+          tag: 'div',
+          class: ['flex', 'justify-between', 'items-baseline'],
+          children: [
+            {
+              tag: 'i',
+              class: ['fas', 'fa-heart', 'text-red-600'],
+            },
+            {
+              tag: 'p',
+              class: [],
+              textContent: '2 likes',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      tag: 'button',
+      class: ['bg-stone-300'],
+      textContent: 'Comment',
+    },
+  ],
+});
 
 const cardNode = (element) => {
   const node = document.createElement(element.tag);
