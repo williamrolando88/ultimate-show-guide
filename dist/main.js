@@ -113,13 +113,25 @@ async function getLikes() {
   return data;
 }
 async function submitLike(id) {
-  const url = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/DUygu2IA853rbrNq5k3K/likes';
-  const response = await fetch(url, {
-    method: 'POST',
-    body: id
-  });
-  const data = await response.json();
-  return data;
+  try {
+    const body = JSON.stringify({
+      item_id: id
+    });
+    const url = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/DUygu2IA853rbrNq5k3K/likes';
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: body
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
 }
 
 /***/ }),
@@ -494,6 +506,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_variables_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/variables.js */ "./src/modules/variables.js");
 /* harmony import */ var _modules_renderNodes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/renderNodes.js */ "./src/modules/renderNodes.js");
 /* harmony import */ var _popUp_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./popUp.js */ "./src/popUp.js");
+/* harmony import */ var _modules_likesFetch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/likesFetch */ "./src/modules/likesFetch.js");
+
 
 
 
@@ -515,8 +529,9 @@ function openPopupWindow(cardsContainer) {
   const article = cardsContainer.querySelectorAll('article');
   const likes = cardsContainer.querySelectorAll('i');
   likes.forEach((like, index) => {
-    like.addEventListener('click', () => {
-      id = article[index].id;
+    like.addEventListener('click', async () => {
+      await (0,_modules_likesFetch__WEBPACK_IMPORTED_MODULE_5__.submitLike)(article[index].id);
+      window.location.reload();
     });
   });
 })();
