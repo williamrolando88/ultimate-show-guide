@@ -99,9 +99,7 @@ async function fetchData(serie) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "cardStructure": () => (/* binding */ cardStructure),
-/* harmony export */   "cardNode": () => (/* binding */ cardNode),
-/* harmony export */   "appendCards": () => (/* binding */ appendCards)
+/* harmony export */   "default": () => (/* binding */ appendCards)
 /* harmony export */ });
 const cardStructure = serie => ({
   tag: 'article',
@@ -165,20 +163,18 @@ const cardNode = element => {
   return node;
 };
 
-function appendCards(nodes) {
+function appendCards(cardsData) {
   const cardContainer = document.querySelector('#tv-series-container');
 
   while (cardContainer.firstChild) {
     cardContainer.removeChild(cardContainer.firstChild);
   }
 
-  nodes.forEach(node => {
-    cardContainer.appendChild(node);
+  cardsData.forEach(data => {
+    cardContainer.appendChild(cardNode(cardStructure(data)));
   });
   return cardContainer;
 }
-
-
 
 /***/ }),
 
@@ -198,9 +194,7 @@ __webpack_require__.r(__webpack_exports__);
 
 async function renderSeries(serieList) {
   const dataArray = await Promise.all(serieList.map(async serie => (0,_fetchData_js__WEBPACK_IMPORTED_MODULE_0__["default"])(serie)));
-  const structures = dataArray.map(d => (0,_nodeCreation_js__WEBPACK_IMPORTED_MODULE_1__.cardStructure)(d));
-  const nodes = structures.map(s => (0,_nodeCreation_js__WEBPACK_IMPORTED_MODULE_1__.cardNode)(s));
-  const container = (0,_nodeCreation_js__WEBPACK_IMPORTED_MODULE_1__.appendCards)(nodes);
+  const container = (0,_nodeCreation_js__WEBPACK_IMPORTED_MODULE_1__["default"])(dataArray);
   return container;
 }
 
