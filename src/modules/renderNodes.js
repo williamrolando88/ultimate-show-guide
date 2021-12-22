@@ -8,7 +8,6 @@ export default async function renderSeries(serieList) {
     );
     dataArray.forEach((data) => {
       data.alt = data.name.toLowerCase().split(' ').join('-');
-      console.log(data);
     });
     const structures = dataArray.map((d) => cardStructure(d));
     const nodes = structures.map((s) => cardNode(s));
