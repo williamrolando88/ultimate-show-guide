@@ -1,160 +1,3 @@
-<<<<<<< HEAD
-(() => {
-  'use strict';
-  var t = {
-      625: (t, e, a) => {
-        t.exports = a.p + '97be26bc16795b881b8b.png';
-      },
-    },
-    e = {};
-  function a(r) {
-    var o = e[r];
-    if (void 0 !== o) return o.exports;
-    var s = (e[r] = { exports: {} });
-    return t[r](s, s.exports, a), s.exports;
-  }
-  (a.g = (function () {
-    if ('object' == typeof globalThis) return globalThis;
-    try {
-      return this || new Function('return this')();
-    } catch (t) {
-      if ('object' == typeof window) return window;
-    }
-  })()),
-    (() => {
-      var t;
-      a.g.importScripts && (t = a.g.location + '');
-      var e = a.g.document;
-      if (!t && e && (e.currentScript && (t = e.currentScript.src), !t)) {
-        var r = e.getElementsByTagName('script');
-        r.length && (t = r[r.length - 1].src);
-      }
-      if (!t)
-        throw new Error(
-          'Automatic publicPath is not supported in this browser',
-        );
-      (t = t
-        .replace(/#.*$/, '')
-        .replace(/\?.*$/, '')
-        .replace(/\/[^\/]+$/, '/')),
-        (a.p = t);
-    })(),
-    (() => {
-      a(625);
-      const t = (e) => {
-        const a = document.createElement(e.tag);
-        return (
-          e.class.length > 0 && a.classList.add(...e.class),
-          e.textContent && (a.textContent = e.textContent),
-          e.attribute &&
-            Object.keys(e.attribute).forEach((t) => {
-              a.setAttribute(t, e.attribute[t]);
-            }),
-          e.children &&
-            e.children.forEach((e) => {
-              a.appendChild(t(e));
-            }),
-          a
-        );
-      };
-      !(async function (e) {
-        !(function (t) {
-          const e = document.querySelector('#tv-series-container');
-          for (; e.firstChild; ) e.removeChild(e.firstChild);
-          t.forEach((t) => {
-            e.appendChild(t);
-          });
-        })(
-          (
-            await Promise.all(
-              [
-                {
-                  name: 'Squid game',
-                  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt10919420',
-                },
-                {
-                  name: 'Game of Thrones',
-                  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt0944947',
-                },
-                {
-                  name: 'Dexter',
-                  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt0773262',
-                },
-                {
-                  name: 'Grey’s Anatomy',
-                  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt0413573',
-                },
-                {
-                  name: 'The Office',
-                  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt0386676',
-                },
-                {
-                  name: 'Succession',
-                  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt7660850',
-                },
-                {
-                  name: 'Rick & Morty',
-                  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt2861424',
-                },
-                {
-                  name: 'The Walking Dead',
-                  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt1520211',
-                },
-              ].map(async (t) =>
-                (async function (t) {
-                  const e = await fetch(t.url, { method: 'GET' }),
-                    a = await e.json(),
-                    {
-                      name: r,
-                      image: { medium: o },
-                    } = a;
-                  return { name: r, cover: o };
-                })(t),
-              ),
-            )
-          )
-            .map((t) => {
-              return {
-                tag: 'article',
-                class: ['serie', 'flex', 'flex-col'],
-                children: [
-                  {
-                    tag: 'img',
-                    class: [],
-                    attribute: { src: (e = t).cover, alt: e.name },
-                  },
-                  {
-                    tag: 'div',
-                    class: [],
-                    children: [
-                      { tag: 'h2', class: [], textContent: e.name },
-                      {
-                        tag: 'div',
-                        class: ['flex', 'justify-between', 'items-baseline'],
-                        children: [
-                          {
-                            tag: 'i',
-                            class: ['fas', 'fa-heart', 'text-red-600'],
-                          },
-                          { tag: 'p', class: [], textContent: '2 likes' },
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    tag: 'button',
-                    class: ['bg-stone-300'],
-                    textContent: 'Comment',
-                  },
-                ],
-              };
-              var e;
-            })
-            .map((e) => t(e)),
-        );
-      })();
-    })();
-=======
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
@@ -216,6 +59,227 @@ function closePopUP(popUpWindow) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (closePopUP);
+
+/***/ }),
+
+/***/ "./src/modules/fetchData.js":
+/*!**********************************!*\
+  !*** ./src/modules/fetchData.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ fetchData)
+/* harmony export */ });
+async function fetchData(serie) {
+  const response = await fetch(serie.url, {
+    method: 'GET'
+  });
+  const data = await response.json();
+  const {
+    name,
+    image: {
+      medium: cover
+    }
+  } = data;
+  return {
+    name,
+    cover
+  };
+}
+
+/***/ }),
+
+/***/ "./src/modules/nodeCreation.js":
+/*!*************************************!*\
+  !*** ./src/modules/nodeCreation.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "cardStructure": () => (/* binding */ cardStructure),
+/* harmony export */   "cardNode": () => (/* binding */ cardNode),
+/* harmony export */   "appendCards": () => (/* binding */ appendCards)
+/* harmony export */ });
+const cardStructure = serie => ({
+  tag: 'article',
+  class: ['serie', 'flex', 'flex-col'],
+  children: [{
+    tag: 'img',
+    class: [],
+    attribute: {
+      src: serie.cover,
+      alt: serie.name
+    }
+  }, {
+    tag: 'div',
+    class: [],
+    children: [{
+      tag: 'h2',
+      class: [],
+      textContent: serie.name
+    }, {
+      tag: 'div',
+      class: ['flex', 'justify-between', 'items-baseline'],
+      children: [{
+        tag: 'i',
+        class: ['fas', 'fa-heart', 'text-red-600']
+      }, {
+        tag: 'p',
+        class: [],
+        textContent: '2 likes'
+      }]
+    }]
+  }, {
+    tag: 'button',
+    class: ['bg-stone-300'],
+    textContent: 'Comment'
+  }]
+});
+
+const cardNode = element => {
+  const node = document.createElement(element.tag);
+
+  if (element.class.length > 0) {
+    node.classList.add(...element.class);
+  }
+
+  if (element.textContent) {
+    node.textContent = element.textContent;
+  }
+
+  if (element.attribute) {
+    Object.keys(element.attribute).forEach(key => {
+      node.setAttribute(key, element.attribute[key]);
+    });
+  }
+
+  if (element.children) {
+    element.children.forEach(children => {
+      node.appendChild(cardNode(children));
+    });
+  }
+
+  return node;
+};
+
+function appendCards(nodes) {
+  const cardContainer = document.querySelector('#tv-series-container');
+
+  while (cardContainer.firstChild) {
+    cardContainer.removeChild(cardContainer.firstChild);
+  }
+
+  nodes.forEach(node => {
+    cardContainer.appendChild(node);
+  });
+  return cardContainer;
+}
+
+
+
+/***/ }),
+
+/***/ "./src/modules/renderNodes.js":
+/*!************************************!*\
+  !*** ./src/modules/renderNodes.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ renderSeries)
+/* harmony export */ });
+/* harmony import */ var _fetchData_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fetchData.js */ "./src/modules/fetchData.js");
+/* harmony import */ var _nodeCreation_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nodeCreation.js */ "./src/modules/nodeCreation.js");
+
+
+async function renderSeries(serieList) {
+  const dataArray = await Promise.all(serieList.map(async serie => (0,_fetchData_js__WEBPACK_IMPORTED_MODULE_0__["default"])(serie)));
+  const structures = dataArray.map(d => (0,_nodeCreation_js__WEBPACK_IMPORTED_MODULE_1__.cardStructure)(d));
+  const nodes = structures.map(s => (0,_nodeCreation_js__WEBPACK_IMPORTED_MODULE_1__.cardNode)(s));
+  const container = (0,_nodeCreation_js__WEBPACK_IMPORTED_MODULE_1__.appendCards)(nodes);
+  return container;
+}
+
+/***/ }),
+
+/***/ "./src/modules/variables.js":
+/*!**********************************!*\
+  !*** ./src/modules/variables.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const movieList = [{
+  name: 'Squid game',
+  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt10919420'
+}, {
+  name: 'Game of Thrones',
+  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt0944947'
+}, {
+  name: 'Dexter',
+  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt0773262'
+}, {
+  name: 'Grey’s Anatomy',
+  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt0413573'
+}, {
+  name: 'The Office',
+  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt0386676'
+}, {
+  name: 'Succession',
+  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt7660850'
+}, {
+  name: 'Rick & Morty',
+  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt2861424'
+}, {
+  name: 'The Walking Dead',
+  url: 'https://api.tvmaze.com/lookup/shows?imdb=tt1520211'
+}];
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (movieList);
+
+/***/ }),
+
+/***/ "./src/popUp.js":
+/*!**********************!*\
+  !*** ./src/popUp.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _apiRequest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./apiRequest */ "./src/apiRequest.js");
+/* harmony import */ var _interactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./interactions */ "./src/interactions.js");
+/* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./render */ "./src/render.js");
+
+
+
+_apiRequest__WEBPACK_IMPORTED_MODULE_0__["default"];
+_render__WEBPACK_IMPORTED_MODULE_2__.createHTML;
+_render__WEBPACK_IMPORTED_MODULE_2__.openPopUp;
+_interactions__WEBPACK_IMPORTED_MODULE_1__["default"];
+
+const renderPopUp = async url => {
+  const seriesInfo = await (0,_apiRequest__WEBPACK_IMPORTED_MODULE_0__["default"])(url);
+  const popUp = (0,_render__WEBPACK_IMPORTED_MODULE_2__.createHTML)(seriesInfo);
+  const renderedHTML = (0,_render__WEBPACK_IMPORTED_MODULE_2__.openPopUp)(popUp);
+  return renderedHTML;
+};
+
+const popUpInteraction = async (url, name) => {
+  const popUpWindow = await renderPopUp(url);
+  (0,_interactions__WEBPACK_IMPORTED_MODULE_1__["default"])(popUpWindow);
+  console.log(name);
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (popUpInteraction);
 
 /***/ }),
 
@@ -387,33 +451,30 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles.css */ "./src/styles.css");
 /* harmony import */ var _images_DummyLogoTV_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./images/DummyLogoTV.png */ "./src/images/DummyLogoTV.png");
-/* harmony import */ var _apiRequest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./apiRequest */ "./src/apiRequest.js");
-/* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./render */ "./src/render.js");
-/* harmony import */ var _interactions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./interactions */ "./src/interactions.js");
-
- // import { commentPopUp } from './popUp.js'
-// import { openPopUp } from './openPopUs';
+/* harmony import */ var _modules_variables_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/variables.js */ "./src/modules/variables.js");
+/* harmony import */ var _modules_renderNodes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/renderNodes.js */ "./src/modules/renderNodes.js");
+/* harmony import */ var _popUp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./popUp */ "./src/popUp.js");
 
 
 
- // const commentBtn = document.querySelector('button').addEventListener('click', commentPopUp);
-// const commentBtn = document.querySelector('button').addEventListener('click', openPopUp);
 
-const url = 'https://api.tvmaze.com/lookup/shows?imdb=tt10919420';
+ // *Don't move it!
 
-const renderPopUp = async () => {
-  const seriesInfo = await (0,_apiRequest__WEBPACK_IMPORTED_MODULE_2__["default"])(url);
-  const popUp = (0,_render__WEBPACK_IMPORTED_MODULE_3__.createHTML)(seriesInfo);
-  const renderedHTML = (0,_render__WEBPACK_IMPORTED_MODULE_3__.openPopUp)(popUp);
-  return renderedHTML;
-};
+function openPopupWindow(cardsContainer) {
+  const commentButtons = cardsContainer.querySelectorAll('button');
+  commentButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      (0,_popUp__WEBPACK_IMPORTED_MODULE_4__["default"])(_modules_variables_js__WEBPACK_IMPORTED_MODULE_2__["default"][index].url, _modules_variables_js__WEBPACK_IMPORTED_MODULE_2__["default"][index].name.toLowerCase().split(' ').join('-'));
+    });
+  });
+}
 
-const popUpInteraction = async () => {
-  const popUpWindow = await renderPopUp();
-  (0,_interactions__WEBPACK_IMPORTED_MODULE_4__["default"])(popUpWindow);
-};
-
-popUpInteraction();
->>>>>>> feature/popUp
+(async function main() {
+  const cardsContainer = await (0,_modules_renderNodes_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_modules_variables_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
+  openPopupWindow(cardsContainer);
 })();
+})();
+
+/******/ })()
+;
 //# sourceMappingURL=main.js.map
