@@ -26,7 +26,13 @@ const cardStructure = (serie) => ({
           children: [
             {
               tag: 'i',
-              class: ['fas', 'fa-heart', 'text-red-600'],
+              class: [
+                'fas',
+                'fa-heart',
+                'text-red-600',
+                'cursor-pointer',
+                'text-xl',
+              ],
             },
             {
               tag: 'p',

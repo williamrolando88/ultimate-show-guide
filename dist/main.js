@@ -144,7 +144,8 @@ async function fetchData(serie) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ getLikes)
+/* harmony export */   "getLikes": () => (/* binding */ getLikes),
+/* harmony export */   "submitLike": () => (/* binding */ submitLike)
 /* harmony export */ });
 async function getLikes() {
   const url = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/DUygu2IA853rbrNq5k3K/likes';
@@ -153,6 +154,27 @@ async function getLikes() {
   });
   const data = await response.json();
   return data;
+}
+async function submitLike(id) {
+  try {
+    const body = JSON.stringify({
+      item_id: id
+    });
+    const url = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/DUygu2IA853rbrNq5k3K/likes';
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: body
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
 }
 
 /***/ }),
@@ -190,7 +212,7 @@ const cardStructure = serie => ({
       class: ['flex', 'justify-between', 'items-baseline'],
       children: [{
         tag: 'i',
-        class: ['fas', 'fa-heart', 'text-red-600']
+        class: ['fas', 'fa-heart', 'text-red-600', 'cursor-pointer', 'text-xl']
       }, {
         tag: 'p',
         class: [],
@@ -275,7 +297,7 @@ function mergeInfo(dataArray, likes) {
 
 async function renderSeries(serieList) {
   const dataArray = await Promise.all(serieList.map(async serie => (0,_fetchData_js__WEBPACK_IMPORTED_MODULE_0__["default"])(serie)));
-  const likes = await (0,_likesFetch_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  const likes = await (0,_likesFetch_js__WEBPACK_IMPORTED_MODULE_1__.getLikes)();
   mergeInfo(dataArray, likes);
   const container = (0,_nodeCreation_js__WEBPACK_IMPORTED_MODULE_2__["default"])(dataArray);
   return container;
@@ -332,6 +354,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _apiRequest_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./apiRequest.js */ "./src/apiRequest.js");
+/* harmony import */ var _interactions_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./interactions.js */ "./src/interactions.js");
+/* harmony import */ var _render_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./render.js */ "./src/render.js");
+
+
+
+
+const renderPopUp = async url => {
+  const seriesInfo = await (0,_apiRequest_js__WEBPACK_IMPORTED_MODULE_0__["default"])(url);
+  const popUp = (0,_render_js__WEBPACK_IMPORTED_MODULE_2__.createHTML)(seriesInfo);
+  const renderedHTML = (0,_render_js__WEBPACK_IMPORTED_MODULE_2__.openPopUp)(popUp);
 /* harmony import */ var _apiRequest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./apiRequest */ "./src/apiRequest.js");
 /* harmony import */ var _comments__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./comments */ "./src/comments.js");
 /* harmony import */ var _interactions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interactions */ "./src/interactions.js");
@@ -359,6 +392,8 @@ const renderPopUp = async url => {
 
 const popUpInteraction = async (url, name) => {
   const popUpWindow = await renderPopUp(url);
+  (0,_interactions_js__WEBPACK_IMPORTED_MODULE_1__["default"])(popUpWindow);
+  console.log(name);
   (0,_interactions__WEBPACK_IMPORTED_MODULE_2__["default"])(popUpWindow);
   const commentInfo = await (0,_comments__WEBPACK_IMPORTED_MODULE_1__.getCommentsFromAPI)(name);
   const commentSpan = (0,_comments__WEBPACK_IMPORTED_MODULE_1__.renderComments)(commentInfo);
@@ -546,7 +581,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_DummyLogoTV_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./images/DummyLogoTV.png */ "./src/images/DummyLogoTV.png");
 /* harmony import */ var _modules_variables_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/variables.js */ "./src/modules/variables.js");
 /* harmony import */ var _modules_renderNodes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/renderNodes.js */ "./src/modules/renderNodes.js");
-/* harmony import */ var _popUp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./popUp */ "./src/popUp.js");
+/* harmony import */ var _popUp_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./popUp.js */ "./src/popUp.js");
+/* harmony import */ var _modules_likesFetch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/likesFetch */ "./src/modules/likesFetch.js");
+
 
 
 
@@ -557,7 +594,7 @@ function openPopupWindow(cardsContainer) {
   const commentButtons = cardsContainer.querySelectorAll('button');
   commentButtons.forEach((button, index) => {
     button.addEventListener('click', () => {
-      (0,_popUp__WEBPACK_IMPORTED_MODULE_4__["default"])(_modules_variables_js__WEBPACK_IMPORTED_MODULE_2__["default"][index].url, _modules_variables_js__WEBPACK_IMPORTED_MODULE_2__["default"][index].name.toLowerCase().split(' ').join('-'));
+      (0,_popUp_js__WEBPACK_IMPORTED_MODULE_4__["default"])(_modules_variables_js__WEBPACK_IMPORTED_MODULE_2__["default"][index].url, _modules_variables_js__WEBPACK_IMPORTED_MODULE_2__["default"][index].name.toLowerCase().split(' ').join('-'));
     });
   });
 }
@@ -565,6 +602,14 @@ function openPopupWindow(cardsContainer) {
 (async function main() {
   const cardsContainer = await (0,_modules_renderNodes_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_modules_variables_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
   openPopupWindow(cardsContainer);
+  const article = cardsContainer.querySelectorAll('article');
+  const likes = cardsContainer.querySelectorAll('i');
+  likes.forEach((like, index) => {
+    like.addEventListener('click', async () => {
+      await (0,_modules_likesFetch__WEBPACK_IMPORTED_MODULE_5__.submitLike)(article[index].id);
+      window.location.reload();
+    });
+  });
 })();
 })();
 
