@@ -2,6 +2,115 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/apiRequest.js":
+/*!***************************!*\
+  !*** ./src/apiRequest.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const getAPI = async url => {
+  const response = await fetch(url);
+  const seriesInfo = await response.json();
+  const {
+    name,
+    language,
+    officialSite,
+    rating: {
+      average
+    },
+    image: {
+      medium
+    },
+    premiered
+  } = seriesInfo;
+  return {
+    name,
+    language,
+    officialSite,
+    average,
+    medium,
+    premiered
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getAPI);
+
+/***/ }),
+
+/***/ "./src/interactions.js":
+/*!*****************************!*\
+  !*** ./src/interactions.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function closePopUP(popUpWindow) {
+  const closeBtn = popUpWindow.querySelector('i');
+  closeBtn.addEventListener('click', () => {
+    popUpWindow.classList.add('hidden');
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (closePopUP);
+
+/***/ }),
+
+/***/ "./src/render.js":
+/*!***********************!*\
+  !*** ./src/render.js ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "openPopUp": () => (/* binding */ openPopUp),
+/* harmony export */   "createHTML": () => (/* binding */ createHTML)
+/* harmony export */ });
+const main = document.querySelector('main');
+
+const createHTML = ({
+  name,
+  language,
+  officialSite,
+  average,
+  medium,
+  premiered
+}) => `
+    <i class="fas fa-times"></i>
+    <img src=${medium} alt="cover Image">
+    <h2>${name}</h2>
+    <ul>
+      <li>Language: ${language}</li>
+      <li>Official Site: ${officialSite}</li>
+      <li>Rating: ${average}</li>
+      <li>Premiered: ${premiered}</li>
+    </ul>
+    <h3>Comments</h3>
+    <form>
+      <input placeholder='Your name here'>
+      <textarea placeholder ='Your insights here'></textarea>
+      <input type='button' value='Comment'>
+    </form>
+    `;
+
+const openPopUp = obj => {
+  const popUp = document.createElement('section');
+  popUp.innerHTML = obj;
+  main.appendChild(popUp);
+  return popUp;
+};
+
+ // export { createHTML }
+
+/***/ }),
+
 /***/ "./src/styles.css":
 /*!************************!*\
   !*** ./src/styles.css ***!
@@ -51,6 +160,18 @@ module.exports = __webpack_require__.p + "97be26bc16795b881b8b.png";
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/global */
 /******/ 	(() => {
 /******/ 		__webpack_require__.g = (function() {
@@ -61,6 +182,11 @@ module.exports = __webpack_require__.p + "97be26bc16795b881b8b.png";
 /******/ 				if (typeof window === 'object') return window;
 /******/ 			}
 /******/ 		})();
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
@@ -104,8 +230,33 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles.css */ "./src/styles.css");
 /* harmony import */ var _images_DummyLogoTV_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./images/DummyLogoTV.png */ "./src/images/DummyLogoTV.png");
+/* harmony import */ var _apiRequest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./apiRequest */ "./src/apiRequest.js");
+/* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./render */ "./src/render.js");
+/* harmony import */ var _interactions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./interactions */ "./src/interactions.js");
+
+ // import { commentPopUp } from './popUp.js'
+// import { openPopUp } from './openPopUs';
 
 
+
+ // const commentBtn = document.querySelector('button').addEventListener('click', commentPopUp);
+// const commentBtn = document.querySelector('button').addEventListener('click', openPopUp);
+
+const url = 'https://api.tvmaze.com/lookup/shows?imdb=tt10919420';
+
+const renderPopUp = async () => {
+  const seriesInfo = await (0,_apiRequest__WEBPACK_IMPORTED_MODULE_2__["default"])(url);
+  const popUp = (0,_render__WEBPACK_IMPORTED_MODULE_3__.createHTML)(seriesInfo);
+  const renderedHTML = (0,_render__WEBPACK_IMPORTED_MODULE_3__.openPopUp)(popUp);
+  return renderedHTML;
+};
+
+const popUpInteraction = async () => {
+  const popUpWindow = await renderPopUp();
+  (0,_interactions__WEBPACK_IMPORTED_MODULE_4__["default"])(popUpWindow);
+};
+
+popUpInteraction();
 })();
 
 /******/ })()
