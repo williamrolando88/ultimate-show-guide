@@ -65,15 +65,13 @@ const cardNode = (element) => {
   return node;
 };
 
-function appendCards(nodes) {
+export default function appendCards(cardsData) {
   const cardContainer = document.querySelector('#tv-series-container');
   while (cardContainer.firstChild) {
     cardContainer.removeChild(cardContainer.firstChild);
   }
-  nodes.forEach((node) => {
-    cardContainer.appendChild(node);
+  cardsData.forEach((data) => {
+    cardContainer.appendChild(cardNode(cardStructure(data)));
   });
   return cardContainer;
 }
-
-export { cardStructure, cardNode, appendCards };
