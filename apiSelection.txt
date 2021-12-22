@@ -1,3 +1,15 @@
 Choose the topic for your website and the API.
 TV maze
 https://www.tvmaze.com/api
+
+
+- Squid game: https://api.tvmaze.com/lookup/shows?imdb=tt10919420
+- Game of Thrones: https://api.tvmaze.com/lookup/shows?imdb=tt0944947
+- Dexter: https://api.tvmaze.com/lookup/shows?imdb=tt0773262
+- Grey’s Anatomy: https://api.tvmaze.com/lookup/shows?imdb=tt0413573
+- The Office: https://api.tvmaze.com/lookup/shows?imdb=tt0386676
+- Succession: https://api.tvmaze.com/lookup/shows?imdb=tt7660850
+- Rick & Morty: https://api.tvmaze.com/lookup/shows?imdb=tt2861424
+- The Walking Dead: https://api.tvmaze.com/lookup/shows?imdb=tt1520211
+
+Unique identifier: DUygu2IA853rbrNq5k3K

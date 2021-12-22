@@ -16,7 +16,9 @@
 
     <title>Ultimate Show Guide</title>
   </head>
-  <body class="bg-stone-50 font-bembolz">
+  <body
+    class="bg-stone-50 font-bembolz min-h-screen flex flex-col justify-between"
+  >
     <header class="w-full">
       <nav class="flex justify-between items-center px-[10%] py-6 bg-stone-300">
         <a class="flex items-center gap-2" href="#">
@@ -37,7 +39,18 @@
         </div>
       </nav>
     </header>
-    <footer class="w-full bg-stone-300 fixed bottom-0 left-0 py-5 px-[10%]">
+
+    <main class="px-[10%]">
+      <h1 class="font-rockwell text-4xl text-center font-bold">
+        Favourite TV series
+      </h1>
+      <section
+        class="grid grid-cols-4 gap-6 py-6"
+        id="tv-series-container"
+      ></section>
+    </main>
+
+    <footer class="w-full bg-stone-300 py-5 px-[10%]">
       <p>© Created by William and Anja under CC License</p>
     </footer>
   </body>
