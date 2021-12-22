@@ -7,7 +7,7 @@ const cardStructure = (serie) => ({
       class: [],
       attribute: {
         src: serie.cover,
-        alt: serie.alt,
+        alt: serie.name,
       },
     },
     {
