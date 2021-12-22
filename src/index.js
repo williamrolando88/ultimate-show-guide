@@ -2,7 +2,7 @@ import './styles.css';
 import './images/DummyLogoTV.png';
 import movieList from './modules/variables.js';
 import renderSeries from './modules/renderNodes.js';
-import popUpInteraction from './popUp';
+import popUpInteraction from './popUp.js';
 
 // *Don't move it!
 function openPopupWindow(cardsContainer) {
@@ -20,4 +20,4 @@ function openPopupWindow(cardsContainer) {
 (async function main() {
   const cardsContainer = await renderSeries(movieList);
   openPopupWindow(cardsContainer);
-})();
+}());

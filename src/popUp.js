@@ -1,11 +1,6 @@
-import getAPI from './apiRequest';
-import closePopUP from './interactions';
-import { createHTML, openPopUp } from './render';
-
-getAPI;
-createHTML;
-openPopUp;
-closePopUP;
+import getAPI from './apiRequest.js';
+import closePopUP from './interactions.js';
+import { createHTML, openPopUp } from './render.js';
 
 const renderPopUp = async (url) => {
   const seriesInfo = await getAPI(url);
