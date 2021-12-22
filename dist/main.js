@@ -83,10 +83,33 @@ async function fetchData(serie) {
       medium: cover
     }
   } = data;
+  const id = name.toLowerCase().split(/[^A-Za-z0-9]/).join('-');
   return {
     name,
-    cover
+    cover,
+    id
   };
+}
+
+/***/ }),
+
+/***/ "./src/modules/likesFetch.js":
+/*!***********************************!*\
+  !*** ./src/modules/likesFetch.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ getLikes)
+/* harmony export */ });
+async function getLikes() {
+  const url = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/DUygu2IA853rbrNq5k3K/likes';
+  const response = await fetch(url, {
+    method: 'GET'
+  });
+  const data = await response.json();
+  return data;
 }
 
 /***/ }),
@@ -103,6 +126,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const cardStructure = serie => ({
   tag: 'article',
+  id: serie.id,
   class: ['serie', 'flex', 'flex-col'],
   children: [{
     tag: 'img',
@@ -127,7 +151,7 @@ const cardStructure = serie => ({
       }, {
         tag: 'p',
         class: [],
-        textContent: '2 likes'
+        textContent: `${serie.likes} likes`
       }]
     }]
   }, {
@@ -139,6 +163,10 @@ const cardStructure = serie => ({
 
 const cardNode = element => {
   const node = document.createElement(element.tag);
+
+  if (element.id) {
+    node.id = element.id;
+  }
 
   if (element.class.length > 0) {
     node.classList.add(...element.class);
@@ -189,12 +217,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ renderSeries)
 /* harmony export */ });
 /* harmony import */ var _fetchData_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fetchData.js */ "./src/modules/fetchData.js");
-/* harmony import */ var _nodeCreation_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nodeCreation.js */ "./src/modules/nodeCreation.js");
+/* harmony import */ var _likesFetch_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./likesFetch.js */ "./src/modules/likesFetch.js");
+/* harmony import */ var _nodeCreation_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./nodeCreation.js */ "./src/modules/nodeCreation.js");
 
+
+
+
+function mergeInfo(dataArray, likes) {
+  dataArray.forEach(data => {
+    const temp = likes.find(e => e.item_id === data.id);
+    data.likes = temp.likes;
+  });
+}
 
 async function renderSeries(serieList) {
   const dataArray = await Promise.all(serieList.map(async serie => (0,_fetchData_js__WEBPACK_IMPORTED_MODULE_0__["default"])(serie)));
-  const container = (0,_nodeCreation_js__WEBPACK_IMPORTED_MODULE_1__["default"])(dataArray);
+  const likes = await (0,_likesFetch_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  mergeInfo(dataArray, likes);
+  const container = (0,_nodeCreation_js__WEBPACK_IMPORTED_MODULE_2__["default"])(dataArray);
   return container;
 }
 
