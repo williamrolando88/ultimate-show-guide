@@ -37,12 +37,16 @@ function appendComments(popUpWindow, commentSpan) {
   });
 }
 
+function updateCounter(popUpWindow, commentsNum) {
+  const numComments = popUpWindow.querySelector('.numComments');
+  numComments.textContent = `(${commentsNum})`;
+}
+
 async function updateCommentNum(name, popUpWindow) {
   const commentsNum = await getComments(name);
-  const numComments = popUpWindow.querySelector('.numComments');
-  numComments.innerText = `(${commentsNum})`;
+  updateCounter(popUpWindow, commentsNum);
 }
 
 export {
-  renderComments, getCommentsFromAPI, appendComments, updateCommentNum,
+  renderComments, getCommentsFromAPI, appendComments, updateCommentNum, updateCounter,
 };

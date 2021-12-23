@@ -85,7 +85,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "renderComments": () => (/* binding */ renderComments),
 /* harmony export */   "getCommentsFromAPI": () => (/* binding */ getCommentsFromAPI),
 /* harmony export */   "appendComments": () => (/* binding */ appendComments),
-/* harmony export */   "updateCommentNum": () => (/* binding */ updateCommentNum)
+/* harmony export */   "updateCommentNum": () => (/* binding */ updateCommentNum),
+/* harmony export */   "updateCounter": () => (/* binding */ updateCounter)
 /* harmony export */ });
 /* harmony import */ var _apiRequest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./apiRequest */ "./src/apiRequest.js");
 
@@ -138,10 +139,14 @@ function appendComments(popUpWindow, commentSpan) {
   });
 }
 
+function updateCounter(popUpWindow, commentsNum) {
+  const numComments = popUpWindow.querySelector('.numComments');
+  numComments.textContent = `(${commentsNum})`;
+}
+
 async function updateCommentNum(name, popUpWindow) {
   const commentsNum = await (0,_apiRequest__WEBPACK_IMPORTED_MODULE_0__.getComments)(name);
-  const numComments = popUpWindow.querySelector('.numComments');
-  numComments.innerText = `(${commentsNum})`;
+  updateCounter(popUpWindow, commentsNum);
 }
 
 
@@ -251,7 +256,8 @@ async function submitLike(id) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ appendCards)
+/* harmony export */   "renderCounter": () => (/* binding */ renderCounter),
+/* harmony export */   "appendCards": () => (/* binding */ appendCards)
 /* harmony export */ });
 const cardStructure = serie => ({
   tag: 'article',
@@ -320,8 +326,11 @@ const cardNode = element => {
   return node;
 };
 
+function renderCounter(array) {
+  document.querySelector('#series-counter').textContent = array.length;
+}
 function appendCards(cardsData) {
-  const cardContainer = document.querySelector('#tv-series-container');
+  const cardContainer = document.getElementById('tv-series-container');
 
   while (cardContainer.firstChild) {
     cardContainer.removeChild(cardContainer.firstChild);
@@ -330,7 +339,7 @@ function appendCards(cardsData) {
   cardsData.forEach(data => {
     cardContainer.appendChild(cardNode(cardStructure(data)));
   });
-  document.querySelector('#series-counter').textContent = `Current favourite series: (${cardsData.length})`;
+  renderCounter(cardsData);
   return cardContainer;
 }
 
@@ -364,7 +373,7 @@ async function renderSeries(serieList) {
   const dataArray = await Promise.all(serieList.map(async serie => (0,_fetchData_js__WEBPACK_IMPORTED_MODULE_0__["default"])(serie)));
   const likes = await (0,_likesFetch_js__WEBPACK_IMPORTED_MODULE_1__.getLikes)();
   mergeInfo(dataArray, likes);
-  const container = (0,_nodeCreation_js__WEBPACK_IMPORTED_MODULE_2__["default"])(dataArray);
+  const container = (0,_nodeCreation_js__WEBPACK_IMPORTED_MODULE_2__.appendCards)(dataArray);
   return container;
 }
 

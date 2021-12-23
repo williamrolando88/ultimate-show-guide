@@ -75,16 +75,18 @@ const cardNode = (element) => {
   return node;
 };
 
-export default function appendCards(cardsData) {
-  const cardContainer = document.querySelector('#tv-series-container');
+export function renderCounter(array) {
+  document.querySelector('#series-counter').textContent = array.length;
+}
+
+export function appendCards(cardsData) {
+  const cardContainer = document.getElementById('tv-series-container');
   while (cardContainer.firstChild) {
     cardContainer.removeChild(cardContainer.firstChild);
   }
   cardsData.forEach((data) => {
     cardContainer.appendChild(cardNode(cardStructure(data)));
   });
-  document.querySelector(
-    '#series-counter',
-  ).textContent = `Current favourite series: (${cardsData.length})`;
+  renderCounter(cardsData);
   return cardContainer;
 }

@@ -9,19 +9,14 @@
     "webhint": "npx hint .",
     "stylelint": "npx stylelint \"**/*.{css,scss}\" --fix",
     "eslint": "npx eslint . --fix",
-    "publish": "gh-pages -d dist"
+    "publish": "gh-pages -d dist",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/williamrolando88/ultimate-show-guide.git"
   },
   "keywords": [],
-  "jest": {
-    "resetMocks": false,
-    "setupFiles": [
-      "jest-localstorage-mock"
-    ]
-  },
   "author": "",
   "license": "ISC",
   "bugs": {
