@@ -275,24 +275,28 @@ const cardStructure = serie => ({
     class: [],
     children: [{
       tag: 'h2',
-      class: [],
+      class: ['text-3xl', 'font-rockwell', 'text-center', 'font-semibold', 'my-4'],
       textContent: serie.name
     }, {
       tag: 'div',
-      class: ['flex', 'justify-between', 'items-baseline'],
+      class: ['flex', 'items-stretch', 'gap-4'],
       children: [{
-        tag: 'i',
-        class: ['fas', 'fa-heart', 'text-red-600', 'cursor-pointer', 'text-xl']
+        tag: 'button',
+        class: ['grow', 'bg-stone-300', 'border', 'border-stone-300', 'rounded-md', 'font-rockwell', 'text-xl', 'hover:bg-stone-100', 'hover:shadow-md'],
+        textContent: 'Comment'
       }, {
-        tag: 'p',
-        class: [],
-        textContent: `${serie.likes} likes`
+        tag: 'div',
+        class: ['flex', 'flex-col', 'items-center', 'border', 'rounded-md', 'p-2'],
+        children: [{
+          tag: 'i',
+          class: ['fas', 'fa-heart', 'text-red-600', 'cursor-pointer', 'text-2xl', 'hover:scale-125']
+        }, {
+          tag: 'p',
+          class: ['font-bold'],
+          textContent: `${serie.likes} likes`
+        }]
       }]
     }]
-  }, {
-    tag: 'button',
-    class: ['bg-stone-300'],
-    textContent: 'Comment'
   }]
 });
 
