@@ -9,19 +9,14 @@
     "webhint": "npx hint .",
     "stylelint": "npx stylelint \"**/*.{css,scss}\" --fix",
     "eslint": "npx eslint . --fix",
-    "publish": "gh-pages -d dist"
+    "publish": "gh-pages -d dist",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/williamrolando88/ultimate-show-guide.git"
   },
   "keywords": [],
-  "jest": {
-    "resetMocks": false,
-    "setupFiles": [
-      "jest-localstorage-mock"
-    ]
-  },
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -42,6 +37,7 @@
     "eslint-plugin-import": "^2.25.3",
     "gh-pages": "^3.2.3",
     "hint": "^6.1.9",
+    "html-loader": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.4.5",
     "jest-localstorage-mock": "^2.4.18",
