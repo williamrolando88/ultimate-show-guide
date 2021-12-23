@@ -1,3 +1,5 @@
+import { getComments } from './apiRequest';
+
 const getCommentsFromAPI = async (showID) => {
   const response = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/DUygu2IA853rbrNq5k3K/comments?item_id=${showID}`);
   const userComments = await response.json();
@@ -35,4 +37,12 @@ function appendComments(popUpWindow, commentSpan) {
   });
 }
 
-export { renderComments, getCommentsFromAPI, appendComments };
+async function updateCommentNum(name, popUpWindow) {
+  const commentsNum = await getComments(name);
+  const numComments = popUpWindow.querySelector('.numComments');
+  numComments.innerText = `(${commentsNum})`;
+}
+
+export {
+  renderComments, getCommentsFromAPI, appendComments, updateCommentNum,
+};

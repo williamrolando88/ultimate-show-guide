@@ -12,7 +12,7 @@ const createHTML = ({
       <li>Rating: ${average}</li>
       <li>Premiered: ${premiered}</li>
     </ul>
-    <h3 class='font-rockwell text-2xl font-bold py-6'>Comments <span class="numComments">(3)</span></h3>
+    <h3 class='font-rockwell text-2xl font-bold py-6'>Comments <span class="numComments">()</span></h3>
     <div class='commentCont self-start flex flex-col'>
     </div>
     <h3 class='font-rockwell text-2xl font-bold py-6'>Add new comment</h3>

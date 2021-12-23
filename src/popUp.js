@@ -1,8 +1,9 @@
-import { getAPI, postComments, getComments } from './apiRequest.js';
+import { getAPI, postComments } from './apiRequest.js';
 import {
   getCommentsFromAPI,
   renderComments,
   appendComments,
+  updateCommentNum,
 } from './comments.js';
 import closePopUP from './interactions.js';
 import { createHTML, openPopUp } from './render.js';
@@ -37,13 +38,9 @@ const popUpInteraction = async (url, name) => {
     const lastComment = await getCommentsFromAPI(name);
     const newCommentSpan = renderComments(lastComment.splice(-1));
     appendComments(popUpWindow, newCommentSpan);
+    await updateCommentNum(name, popUpWindow);
   });
-  const commentsNum = await getComments(name);
-  const numComments = popUpWindow.querySelector('.numComments');
-  numComments.innerText = `(${commentsNum})`;
+  await updateCommentNum(name, popUpWindow);
 };
 
 export default popUpInteraction;
-
-
-

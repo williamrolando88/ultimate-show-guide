@@ -20,7 +20,7 @@ const getAPI = async (url) => {
   };
 };
 
-const getComments = async (name ) => {
+const getComments = async (name) => {
   const url = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/DUygu2IA853rbrNq5k3K/comments?item_id=${name}`;
   const response = await fetch(url);
   const comments = await response.json();

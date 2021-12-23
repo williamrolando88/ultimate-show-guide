@@ -84,8 +84,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "renderComments": () => (/* binding */ renderComments),
 /* harmony export */   "getCommentsFromAPI": () => (/* binding */ getCommentsFromAPI),
-/* harmony export */   "appendComments": () => (/* binding */ appendComments)
+/* harmony export */   "appendComments": () => (/* binding */ appendComments),
+/* harmony export */   "updateCommentNum": () => (/* binding */ updateCommentNum)
 /* harmony export */ });
+/* harmony import */ var _apiRequest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./apiRequest */ "./src/apiRequest.js");
+
+
 const getCommentsFromAPI = async showID => {
   const response = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/DUygu2IA853rbrNq5k3K/comments?item_id=${showID}`);
   const userComments = await response.json();
@@ -132,6 +136,12 @@ function appendComments(popUpWindow, commentSpan) {
   commentSpan.forEach(com => {
     commentCont.appendChild(com);
   });
+}
+
+async function updateCommentNum(name, popUpWindow) {
+  const commentsNum = await (0,_apiRequest__WEBPACK_IMPORTED_MODULE_0__.getComments)(name);
+  const numComments = popUpWindow.querySelector('.numComments');
+  numComments.innerText = `(${commentsNum})`;
 }
 
 
@@ -447,10 +457,9 @@ const popUpInteraction = async (url, name) => {
     const lastComment = await (0,_comments_js__WEBPACK_IMPORTED_MODULE_1__.getCommentsFromAPI)(name);
     const newCommentSpan = (0,_comments_js__WEBPACK_IMPORTED_MODULE_1__.renderComments)(lastComment.splice(-1));
     (0,_comments_js__WEBPACK_IMPORTED_MODULE_1__.appendComments)(popUpWindow, newCommentSpan);
+    await (0,_comments_js__WEBPACK_IMPORTED_MODULE_1__.updateCommentNum)(name, popUpWindow);
   });
-  const commentsNum = await (0,_apiRequest_js__WEBPACK_IMPORTED_MODULE_0__.getComments)(name);
-  const numComments = popUpWindow.querySelector('.numComments');
-  numComments.innerText = `(${commentsNum})`;
+  await (0,_comments_js__WEBPACK_IMPORTED_MODULE_1__.updateCommentNum)(name, popUpWindow);
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (popUpInteraction);
@@ -487,7 +496,7 @@ const createHTML = ({
       <li>Rating: ${average}</li>
       <li>Premiered: ${premiered}</li>
     </ul>
-    <h3 class='font-rockwell text-2xl font-bold py-6'>Comments <span class="numComments">(3)</span></h3>
+    <h3 class='font-rockwell text-2xl font-bold py-6'>Comments <span class="numComments">()</span></h3>
     <div class='commentCont self-start flex flex-col'>
     </div>
     <h3 class='font-rockwell text-2xl font-bold py-6'>Add new comment</h3>
