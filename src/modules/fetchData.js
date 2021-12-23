@@ -5,5 +5,9 @@ export default async function fetchData(serie) {
     name,
     image: { medium: cover },
   } = data;
-  return { name, cover };
+  const id = name
+    .toLowerCase()
+    .split(/[^A-Za-z0-9]/)
+    .join('-');
+  return { name, cover, id };
 }
