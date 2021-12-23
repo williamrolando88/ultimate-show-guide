@@ -354,33 +354,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _apiRequest_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./apiRequest.js */ "./src/apiRequest.js");
-/* harmony import */ var _interactions_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./interactions.js */ "./src/interactions.js");
-/* harmony import */ var _render_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./render.js */ "./src/render.js");
+/* harmony import */ var _comments__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./comments */ "./src/comments.js");
+/* harmony import */ var _apiRequest_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./apiRequest.js */ "./src/apiRequest.js");
+/* harmony import */ var _interactions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interactions.js */ "./src/interactions.js");
+/* harmony import */ var _render_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./render.js */ "./src/render.js");
 
 
 
 
-const renderPopUp = async url => {
-  const seriesInfo = await (0,_apiRequest_js__WEBPACK_IMPORTED_MODULE_0__["default"])(url);
-  const popUp = (0,_render_js__WEBPACK_IMPORTED_MODULE_2__.createHTML)(seriesInfo);
-  const renderedHTML = (0,_render_js__WEBPACK_IMPORTED_MODULE_2__.openPopUp)(popUp);
-/* harmony import */ var _apiRequest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./apiRequest */ "./src/apiRequest.js");
-/* harmony import */ var _comments__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./comments */ "./src/comments.js");
-/* harmony import */ var _interactions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interactions */ "./src/interactions.js");
-/* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./render */ "./src/render.js");
-
-
-
- // getAPI;
-// createHTML;
-// openPopUp;
-// closePopUP;
 
 const renderPopUp = async url => {
-  const seriesInfo = await (0,_apiRequest__WEBPACK_IMPORTED_MODULE_0__["default"])(url);
-  const popUp = (0,_render__WEBPACK_IMPORTED_MODULE_3__.createHTML)(seriesInfo);
-  const renderedHTML = (0,_render__WEBPACK_IMPORTED_MODULE_3__.openPopUp)(popUp);
+  const seriesInfo = await (0,_apiRequest_js__WEBPACK_IMPORTED_MODULE_1__["default"])(url);
+  const popUp = (0,_render_js__WEBPACK_IMPORTED_MODULE_3__.createHTML)(seriesInfo);
+  const renderedHTML = (0,_render_js__WEBPACK_IMPORTED_MODULE_3__.openPopUp)(popUp);
   return renderedHTML;
 };
 /**
@@ -392,12 +378,10 @@ const renderPopUp = async url => {
 
 const popUpInteraction = async (url, name) => {
   const popUpWindow = await renderPopUp(url);
-  (0,_interactions_js__WEBPACK_IMPORTED_MODULE_1__["default"])(popUpWindow);
-  console.log(name);
-  (0,_interactions__WEBPACK_IMPORTED_MODULE_2__["default"])(popUpWindow);
-  const commentInfo = await (0,_comments__WEBPACK_IMPORTED_MODULE_1__.getCommentsFromAPI)(name);
-  const commentSpan = (0,_comments__WEBPACK_IMPORTED_MODULE_1__.renderComments)(commentInfo);
-  (0,_comments__WEBPACK_IMPORTED_MODULE_1__.appendComments)(popUpWindow, commentSpan);
+  (0,_interactions_js__WEBPACK_IMPORTED_MODULE_2__["default"])(popUpWindow);
+  const commentInfo = await (0,_comments__WEBPACK_IMPORTED_MODULE_0__.getCommentsFromAPI)(name);
+  const commentSpan = (0,_comments__WEBPACK_IMPORTED_MODULE_0__.renderComments)(commentInfo);
+  (0,_comments__WEBPACK_IMPORTED_MODULE_0__.appendComments)(popUpWindow, commentSpan);
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (popUpInteraction);
@@ -607,7 +591,7 @@ function openPopupWindow(cardsContainer) {
   likes.forEach((like, index) => {
     like.addEventListener('click', async () => {
       await (0,_modules_likesFetch__WEBPACK_IMPORTED_MODULE_5__.submitLike)(article[index].id);
-      window.location.reload();
+      main();
     });
   });
 })();

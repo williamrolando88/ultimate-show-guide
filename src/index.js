@@ -27,7 +27,7 @@ function openPopupWindow(cardsContainer) {
   likes.forEach((like, index) => {
     like.addEventListener('click', async () => {
       await submitLike(article[index].id);
-      window.location.reload();
+      main();
     });
   });
 })();
