@@ -11,7 +11,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getAPI": () => (/* binding */ getAPI),
-/* harmony export */   "postComments": () => (/* binding */ postComments)
+/* harmony export */   "postComments": () => (/* binding */ postComments),
+/* harmony export */   "getComments": () => (/* binding */ getComments)
 /* harmony export */ });
 const getAPI = async url => {
   const response = await fetch(url);
@@ -36,6 +37,13 @@ const getAPI = async url => {
     medium,
     premiered
   };
+};
+
+const getComments = async name => {
+  const url = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/DUygu2IA853rbrNq5k3K/comments?item_id=${name}`;
+  const response = await fetch(url);
+  const comments = await response.json();
+  return comments.length;
 };
 
 const postComments = async (name, username, message) => {
@@ -440,6 +448,9 @@ const popUpInteraction = async (url, name) => {
     const newCommentSpan = (0,_comments_js__WEBPACK_IMPORTED_MODULE_1__.renderComments)(lastComment.splice(-1));
     (0,_comments_js__WEBPACK_IMPORTED_MODULE_1__.appendComments)(popUpWindow, newCommentSpan);
   });
+  const commentsNum = await (0,_apiRequest_js__WEBPACK_IMPORTED_MODULE_0__.getComments)(name);
+  const numComments = popUpWindow.querySelector('.numComments');
+  numComments.innerText = `(${commentsNum})`;
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (popUpInteraction);
@@ -476,7 +487,7 @@ const createHTML = ({
       <li>Rating: ${average}</li>
       <li>Premiered: ${premiered}</li>
     </ul>
-    <h3 class='font-rockwell text-2xl font-bold py-6'>Comments</h3>
+    <h3 class='font-rockwell text-2xl font-bold py-6'>Comments <span class="numComments">(3)</span></h3>
     <div class='commentCont self-start flex flex-col'>
     </div>
     <h3 class='font-rockwell text-2xl font-bold py-6'>Add new comment</h3>

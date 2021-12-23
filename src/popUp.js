@@ -1,4 +1,4 @@
-import { getAPI, postComments } from './apiRequest.js';
+import { getAPI, postComments, getComments } from './apiRequest.js';
 import {
   getCommentsFromAPI,
   renderComments,
@@ -38,6 +38,12 @@ const popUpInteraction = async (url, name) => {
     const newCommentSpan = renderComments(lastComment.splice(-1));
     appendComments(popUpWindow, newCommentSpan);
   });
+  const commentsNum = await getComments(name);
+  const numComments = popUpWindow.querySelector('.numComments');
+  numComments.innerText = `(${commentsNum})`;
 };
 
 export default popUpInteraction;
+
+
+
