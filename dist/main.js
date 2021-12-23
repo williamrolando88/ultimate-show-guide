@@ -85,7 +85,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "renderComments": () => (/* binding */ renderComments),
 /* harmony export */   "getCommentsFromAPI": () => (/* binding */ getCommentsFromAPI),
 /* harmony export */   "appendComments": () => (/* binding */ appendComments),
-/* harmony export */   "updateCommentNum": () => (/* binding */ updateCommentNum)
+/* harmony export */   "updateCommentNum": () => (/* binding */ updateCommentNum),
+/* harmony export */   "updateCounter": () => (/* binding */ updateCounter)
 /* harmony export */ });
 /* harmony import */ var _apiRequest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./apiRequest */ "./src/apiRequest.js");
 
@@ -138,10 +139,14 @@ function appendComments(popUpWindow, commentSpan) {
   });
 }
 
+function updateCounter(popUpWindow, commentsNum) {
+  const numComments = popUpWindow.querySelector('.numComments');
+  numComments.textContent = `(${commentsNum})`;
+}
+
 async function updateCommentNum(name, popUpWindow) {
   const commentsNum = await (0,_apiRequest__WEBPACK_IMPORTED_MODULE_0__.getComments)(name);
-  const numComments = popUpWindow.querySelector('.numComments');
-  numComments.innerText = `(${commentsNum})`;
+  updateCounter(popUpWindow, commentsNum);
 }
 
 
