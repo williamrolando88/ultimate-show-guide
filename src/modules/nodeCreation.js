@@ -75,11 +75,11 @@ const cardNode = (element) => {
   return node;
 };
 
-function renderCounter(array) {
+export function renderCounter(array) {
   document.querySelector('#series-counter').textContent = array.length;
 }
 
-export default function appendCards(cardsData) {
+export function appendCards(cardsData) {
   const cardContainer = document.getElementById('tv-series-container');
   while (cardContainer.firstChild) {
     cardContainer.removeChild(cardContainer.firstChild);

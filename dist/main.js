@@ -251,7 +251,8 @@ async function submitLike(id) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ appendCards)
+/* harmony export */   "renderCounter": () => (/* binding */ renderCounter),
+/* harmony export */   "appendCards": () => (/* binding */ appendCards)
 /* harmony export */ });
 const cardStructure = serie => ({
   tag: 'article',
@@ -323,7 +324,6 @@ const cardNode = element => {
 function renderCounter(array) {
   document.querySelector('#series-counter').textContent = array.length;
 }
-
 function appendCards(cardsData) {
   const cardContainer = document.getElementById('tv-series-container');
 
@@ -368,7 +368,7 @@ async function renderSeries(serieList) {
   const dataArray = await Promise.all(serieList.map(async serie => (0,_fetchData_js__WEBPACK_IMPORTED_MODULE_0__["default"])(serie)));
   const likes = await (0,_likesFetch_js__WEBPACK_IMPORTED_MODULE_1__.getLikes)();
   mergeInfo(dataArray, likes);
-  const container = (0,_nodeCreation_js__WEBPACK_IMPORTED_MODULE_2__["default"])(dataArray);
+  const container = (0,_nodeCreation_js__WEBPACK_IMPORTED_MODULE_2__.appendCards)(dataArray);
   return container;
 }
 

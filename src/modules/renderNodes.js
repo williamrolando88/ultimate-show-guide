@@ -1,6 +1,6 @@
 import fetchData from './fetchData.js';
 import { getLikes } from './likesFetch.js';
-import appendCards from './nodeCreation.js';
+import { appendCards } from './nodeCreation.js';
 
 function mergeInfo(dataArray, likes) {
   dataArray.forEach((data) => {
