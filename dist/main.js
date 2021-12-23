@@ -320,8 +320,12 @@ const cardNode = element => {
   return node;
 };
 
+function renderCounter(array) {
+  document.querySelector('#series-counter').textContent = array.length;
+}
+
 function appendCards(cardsData) {
-  const cardContainer = document.querySelector('#tv-series-container');
+  const cardContainer = document.getElementById('tv-series-container');
 
   while (cardContainer.firstChild) {
     cardContainer.removeChild(cardContainer.firstChild);
@@ -330,7 +334,7 @@ function appendCards(cardsData) {
   cardsData.forEach(data => {
     cardContainer.appendChild(cardNode(cardStructure(data)));
   });
-  document.querySelector('#series-counter').textContent = `Current favourite series: (${cardsData.length})`;
+  renderCounter(cardsData);
   return cardContainer;
 }
 
