@@ -10,7 +10,8 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "getAPI": () => (/* binding */ getAPI),
+/* harmony export */   "postComments": () => (/* binding */ postComments)
 /* harmony export */ });
 const getAPI = async url => {
   const response = await fetch(url);
@@ -37,7 +38,34 @@ const getAPI = async url => {
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getAPI);
+const postComments = async (name, username, message) => {
+  try {
+    const post = {
+      item_id: `${name}`,
+      username: username.value,
+      comment: message.value
+    };
+    const url = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/DUygu2IA853rbrNq5k3K/comments?item_id=${name}`;
+    console.log(JSON.stringify(post), url);
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(post)
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log('Error happened here!');
+    console.error(error);
+  }
+
+  return null;
+};
+
+
 
 /***/ }),
 
@@ -56,8 +84,23 @@ __webpack_require__.r(__webpack_exports__);
 const getCommentsFromAPI = async showID => {
   const response = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/DUygu2IA853rbrNq5k3K/comments?item_id=${showID}`);
   const userComments = await response.json();
-  return userComments;
+
+  if (response.ok) {
+    return userComments;
+  }
+
+  return [{
+    username: 'Jane',
+    creation_date: '2021-12-22',
+    comment: 'Hello!'
+  }];
 };
+/**
+ * Renders comment span, called in popUpInteraction
+ * @param {Array} arr -> passed in from return of getCommentsFromAPI(), called in popUpInteraction
+ * @returns {HTML} -> span element that will append to commentCont in appendComments()
+ */
+
 
 const renderComments = arr => {
   const commentHTML = arr.map(com => {
@@ -72,6 +115,12 @@ const renderComments = arr => {
   });
   return commentHTML;
 };
+/**
+ * Appends comments to HTML, called in popUpInteraction
+ * @param {HTML} popUpWindow -> parent node (section)
+ * @param {HTML} commentSpan -> child element
+ */
+
 
 function appendComments(popUpWindow, commentSpan) {
   const commentCont = popUpWindow.querySelector('.commentCont');
@@ -364,9 +413,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const renderPopUp = async url => {
+<<<<<<< HEAD
+  const seriesInfo = await (0,_apiRequest__WEBPACK_IMPORTED_MODULE_0__.getAPI)(url);
+  const popUp = (0,_render__WEBPACK_IMPORTED_MODULE_3__.createHTML)(seriesInfo);
+  const renderedHTML = (0,_render__WEBPACK_IMPORTED_MODULE_3__.openPopUp)(popUp);
+=======
   const seriesInfo = await (0,_apiRequest_js__WEBPACK_IMPORTED_MODULE_1__["default"])(url);
   const popUp = (0,_render_js__WEBPACK_IMPORTED_MODULE_3__.createHTML)(seriesInfo);
   const renderedHTML = (0,_render_js__WEBPACK_IMPORTED_MODULE_3__.openPopUp)(popUp);
+>>>>>>> dev
   return renderedHTML;
 };
 /**
@@ -419,20 +474,20 @@ const createHTML = ({
       <li>Premiered: ${premiered}</li>
     </ul>
     <h3 class='font-rockwell text-2xl font-bold py-6'>Comments</h3>
-    <div class='commentCont flex flex-col'>
+    <div class='commentCont self-start flex flex-col'>
     </div>
     <h3 class='font-rockwell text-2xl font-bold py-6'>Add new comment</h3>
     <form class='flex flex-col self-start items-start'>
-      <input class='mb-4' placeholder='Your name here' required>
-      <textarea placeholder ='Your insights here' required></textarea>
-      <input class='bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded mt-4' type='button' value='Comment'>
+      <input id='username' class='mb-4' placeholder='Your name here' required>
+      <textarea id='message' placeholder ='Your insights here' required></textarea>
+      <input class='bg-gray-300 commentBtn hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded mt-4' type='button' value='Comment'>
     </form>
     `;
 
 const openPopUp = obj => {
   const popUp = document.createElement('section');
   Object.assign(popUp, {
-    className: 'flex flex-col overflow-y-scroll items-center border-2 border-gray-600 border-solid px-[20%] py-6 my-[50px]'
+    className: 'flex flex-col overflow-y-scroll items-center rounded-md px-[20%] py-6 my-[50px]'
   });
   popUp.setAttribute('style', 'position : absolute; top: 65px; left: 20%; background-color: white');
   popUp.innerHTML = obj;
