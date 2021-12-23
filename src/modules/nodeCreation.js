@@ -83,5 +83,8 @@ export default function appendCards(cardsData) {
   cardsData.forEach((data) => {
     cardContainer.appendChild(cardNode(cardStructure(data)));
   });
+  document.querySelector(
+    '#series-counter',
+  ).textContent = `Current favourite series: (${cardsData.length})`;
   return cardContainer;
 }
