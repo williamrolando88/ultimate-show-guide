@@ -3,7 +3,7 @@ import './images/DummyLogoTV.png';
 import movieList from './modules/variables.js';
 import renderSeries from './modules/renderNodes.js';
 import popUpInteraction from './popUp.js';
-import { submitLike } from './modules/likesFetch';
+import { submitLike } from './modules/likesFetch.js';
 
 // *Don't move it!
 function openPopupWindow(cardsContainer) {
@@ -12,7 +12,10 @@ function openPopupWindow(cardsContainer) {
     button.addEventListener('click', () => {
       popUpInteraction(
         movieList[index].url,
-        movieList[index].name.toLowerCase().split(' ').join('-'),
+        movieList[index].name
+          .toLowerCase()
+          .split(/[^A-Za-z0-9]/)
+          .join('-'),
       );
     });
   });
@@ -30,4 +33,4 @@ function openPopupWindow(cardsContainer) {
       main();
     });
   });
-})();
+}());
