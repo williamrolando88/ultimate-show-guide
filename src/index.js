@@ -20,4 +20,4 @@ function openPopupWindow(cardsContainer) {
 (async function main() {
   const cardsContainer = await renderSeries(movieList);
   openPopupWindow(cardsContainer);
-})();
+}());
