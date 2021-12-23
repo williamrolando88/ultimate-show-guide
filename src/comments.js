@@ -48,7 +48,5 @@ async function updateCommentNum(name, popUpWindow) {
 }
 
 export {
-  renderComments, getCommentsFromAPI, appendComments, updateCommentNum, updateCounter
+  renderComments, getCommentsFromAPI, appendComments, updateCommentNum, updateCounter,
 };
-
-
