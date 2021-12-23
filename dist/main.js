@@ -11,7 +11,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getAPI": () => (/* binding */ getAPI),
-/* harmony export */   "postComments": () => (/* binding */ postComments)
+/* harmony export */   "postComments": () => (/* binding */ postComments),
+/* harmony export */   "getComments": () => (/* binding */ getComments)
 /* harmony export */ });
 const getAPI = async url => {
   const response = await fetch(url);
@@ -36,6 +37,13 @@ const getAPI = async url => {
     medium,
     premiered
   };
+};
+
+const getComments = async name => {
+  const url = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/DUygu2IA853rbrNq5k3K/comments?item_id=${name}`;
+  const response = await fetch(url);
+  const comments = await response.json();
+  return comments.length;
 };
 
 const postComments = async (name, username, message) => {
@@ -403,8 +411,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _comments__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./comments */ "./src/comments.js");
-/* harmony import */ var _apiRequest_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./apiRequest.js */ "./src/apiRequest.js");
+/* harmony import */ var _apiRequest_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./apiRequest.js */ "./src/apiRequest.js");
+/* harmony import */ var _comments_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./comments.js */ "./src/comments.js");
 /* harmony import */ var _interactions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interactions.js */ "./src/interactions.js");
 /* harmony import */ var _render_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./render.js */ "./src/render.js");
 
@@ -413,15 +421,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const renderPopUp = async url => {
-<<<<<<< HEAD
-  const seriesInfo = await (0,_apiRequest__WEBPACK_IMPORTED_MODULE_0__.getAPI)(url);
-  const popUp = (0,_render__WEBPACK_IMPORTED_MODULE_3__.createHTML)(seriesInfo);
-  const renderedHTML = (0,_render__WEBPACK_IMPORTED_MODULE_3__.openPopUp)(popUp);
-=======
-  const seriesInfo = await (0,_apiRequest_js__WEBPACK_IMPORTED_MODULE_1__["default"])(url);
+  const seriesInfo = await (0,_apiRequest_js__WEBPACK_IMPORTED_MODULE_0__.getAPI)(url);
   const popUp = (0,_render_js__WEBPACK_IMPORTED_MODULE_3__.createHTML)(seriesInfo);
   const renderedHTML = (0,_render_js__WEBPACK_IMPORTED_MODULE_3__.openPopUp)(popUp);
->>>>>>> dev
   return renderedHTML;
 };
 /**
@@ -434,9 +436,23 @@ const renderPopUp = async url => {
 const popUpInteraction = async (url, name) => {
   const popUpWindow = await renderPopUp(url);
   (0,_interactions_js__WEBPACK_IMPORTED_MODULE_2__["default"])(popUpWindow);
-  const commentInfo = await (0,_comments__WEBPACK_IMPORTED_MODULE_0__.getCommentsFromAPI)(name);
-  const commentSpan = (0,_comments__WEBPACK_IMPORTED_MODULE_0__.renderComments)(commentInfo);
-  (0,_comments__WEBPACK_IMPORTED_MODULE_0__.appendComments)(popUpWindow, commentSpan);
+  const commentInfo = await (0,_comments_js__WEBPACK_IMPORTED_MODULE_1__.getCommentsFromAPI)(name);
+  const commentSpan = (0,_comments_js__WEBPACK_IMPORTED_MODULE_1__.renderComments)(commentInfo);
+  (0,_comments_js__WEBPACK_IMPORTED_MODULE_1__.appendComments)(popUpWindow, commentSpan);
+  const username = popUpWindow.querySelector('#username');
+  const message = popUpWindow.querySelector('#message');
+  const commentBtn = popUpWindow.querySelector('.commentBtn');
+  commentBtn.addEventListener('click', async () => {
+    await (0,_apiRequest_js__WEBPACK_IMPORTED_MODULE_0__.postComments)(name, username, message);
+    username.value = '';
+    message.value = '';
+    const lastComment = await (0,_comments_js__WEBPACK_IMPORTED_MODULE_1__.getCommentsFromAPI)(name);
+    const newCommentSpan = (0,_comments_js__WEBPACK_IMPORTED_MODULE_1__.renderComments)(lastComment.splice(-1));
+    (0,_comments_js__WEBPACK_IMPORTED_MODULE_1__.appendComments)(popUpWindow, newCommentSpan);
+  });
+  const commentsNum = await (0,_apiRequest_js__WEBPACK_IMPORTED_MODULE_0__.getComments)(name);
+  const numComments = popUpWindow.querySelector('.numComments');
+  numComments.innerText = `(${commentsNum})`;
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (popUpInteraction);
@@ -473,7 +489,7 @@ const createHTML = ({
       <li>Rating: ${average}</li>
       <li>Premiered: ${premiered}</li>
     </ul>
-    <h3 class='font-rockwell text-2xl font-bold py-6'>Comments</h3>
+    <h3 class='font-rockwell text-2xl font-bold py-6'>Comments <span class="numComments">(3)</span></h3>
     <div class='commentCont self-start flex flex-col'>
     </div>
     <h3 class='font-rockwell text-2xl font-bold py-6'>Add new comment</h3>
