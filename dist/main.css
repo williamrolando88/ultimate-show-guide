@@ -442,23 +442,20 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mt-6 {
   margin-top: 1.5rem;
 }
+.mr-8 {
+  margin-right: 2rem;
+}
+.mr-6 {
+  margin-right: 1.5rem;
+}
+.mb-\[50px\] {
+  margin-bottom: 50px;
+}
 .mb-4 {
   margin-bottom: 1rem;
 }
 .mt-4 {
   margin-top: 1rem;
-}
-.mr-6 {
-  margin-right: 1.5rem;
-}
-.mr-8 {
-  margin-right: 2rem;
-}
-.mt-6 {
-  margin-top: 1.5rem;
-}
-.mb-\[50px\] {
-  margin-bottom: 50px;
 }
 .inline-block {
   display: inline-block;
@@ -475,26 +472,23 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-16 {
   height: 4rem;
 }
-.h-full {
-  height: 100%;
-}
 .min-h-screen {
   min-height: 100vh;
 }
 .w-full {
   width: 100%;
 }
-.w-1\/5 {
-  width: 20%;
+.w-\[70\%\] {
+  width: 70%;
 }
 .w-3\/6 {
   width: 50%;
 }
-.w-\[70\%\] {
-  width: 70%;
-}
 .w-\[100\%\] {
   width: 100%;
+}
+.grow {
+  flex-grow: 1;
 }
 .cursor-pointer {
   cursor: pointer;
@@ -514,26 +508,20 @@ Ensure the default browser behavior of the `hidden` attribute.
 .items-baseline {
   align-items: baseline;
 }
+.items-stretch {
+  align-items: stretch;
+}
 .justify-start {
   justify-content: flex-start;
 }
-.justify-center {
-  justify-content: center;
-}
 .justify-between {
   justify-content: space-between;
-}
-.justify-around {
-  justify-content: space-around;
 }
 .gap-2 {
   gap: 0.5rem;
 }
 .gap-4 {
   gap: 1rem;
-}
-.gap-6 {
-  gap: 1.5rem;
 }
 .gap-8 {
   gap: 2rem;
@@ -572,9 +560,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
-.bg-gray-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+.p-2 {
+  padding: 0.5rem;
 }
 .px-\[10\%\] {
   padding-left: 10%;
@@ -587,18 +574,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
-}
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-}
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-.px-\[20\%\] {
-  padding-left: 20%;
-  padding-right: 20%;
 }
 .py-4 {
   padding-top: 1rem;
@@ -640,37 +615,36 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-size: 2.25rem;
   line-height: 2.5rem;
 }
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-.text-base {
-  font-size: 1rem;
-  line-height: 1.5rem;
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
 }
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
 }
-.text-6xl {
-  font-size: 3.75rem;
-  line-height: 1;
-}
-.text-5xl {
-  font-size: 3rem;
-  line-height: 1;
-}
 .text-\[2rem\] {
   font-size: 2rem;
+}
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 .font-bold {
   font-weight: 700;
 }
+.font-black {
+  font-weight: 900;
+}
 .font-normal {
   font-weight: 400;
 }
-.font-black {
-  font-weight: 900;
+.font-semibold {
+  font-weight: 600;
 }
 .text-gray-700 {
   --tw-text-opacity: 1;
@@ -691,11 +665,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .\[line-height\:20px\] {
   line-height: 20px;
 }
-.hover\:scale-110:hover {
-  --tw-scale-x: 1.1;
-  --tw-scale-y: 1.1;
-  transform: var(--tw-transform);
-}
 .hover\:scale-125:hover {
   --tw-scale-x: 1.25;
   --tw-scale-y: 1.25;
@@ -705,9 +674,36 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(156 163 175 / var(--tw-bg-opacity));
 }
+.hover\:bg-stone-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 245 244 / var(--tw-bg-opacity));
+}
 .hover\:text-blue-600:hover {
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity));
+}
+.hover\:shadow-md:hover {
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: 0 0 rgba(0,0,0,0), 0 0 rgba(0,0,0,0), var(--tw-shadow);
+  box-shadow: 0 0 rgba(0,0,0,0), 0 0 rgba(0,0,0,0), var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 rgba(0,0,0,0)), var(--tw-ring-shadow, 0 0 rgba(0,0,0,0)), var(--tw-shadow);
+}
+@media (min-width: 640px) {
+
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 768px) {
+
+  .md\:flex {
+    display: flex;
+  }
+
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 

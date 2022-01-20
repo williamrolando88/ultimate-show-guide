@@ -33,7 +33,9 @@
             Guide
           </span>
         </a>
-        <div class="flex gap-4 items-baseline font-rockwell text-2xl font-bold">
+        <div
+          class="hidden md:flex gap-4 items-baseline font-rockwell text-2xl font-bold"
+        >
           <a class="text-sm text-gray-700" href="#"
             >Current favourite series: (<span id="series-counter">0</span>)
           </a>
@@ -47,7 +49,10 @@
       <h1 class="font-rockwell text-4xl text-center font-bold mt-6">
         Favorite TV series
       </h1>
-      <div class="grid grid-cols-4 gap-8 py-6" id="tv-series-container"></div>
+      <div
+        class="grid sm:grid-cols-2 md:grid-cols-4 gap-8 py-6"
+        id="tv-series-container"
+      ></div>
     </main>
 
     <footer class="w-full bg-stone-300 py-5 px-[10%]">
