@@ -4,6 +4,25 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="description" content="Free Web tutorials for HTML and CSS" />
+
+    <meta name="author" content="Anja Schmidt - William Morales" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ultimate Show Guide" />
+    <meta
+      property="og:description"
+      content="This website showcase your favorite TV series and it lets you track comments and likes while showing a detailed description of the selected TV series."
+    />
+    <meta
+      property="og:url"
+      content="https://github.com/williamrolando88/ultimate-show-guide"
+    />
+    <meta
+      property="og:image"
+      content="https://raw.githubusercontent.com/williamrolando88/ultimate-show-guide/main/screenshots/ultimate-show-guide-preview.png"
+    />
+
     <link
       href="https://fonts.cdnfonts.com/css/rockwell-nova"
       rel="stylesheet"
@@ -33,7 +52,9 @@
             Guide
           </span>
         </a>
-        <div class="flex gap-4 items-baseline font-rockwell text-2xl font-bold">
+        <div
+          class="hidden md:flex gap-4 items-baseline font-rockwell text-2xl font-bold"
+        >
           <a class="text-sm text-gray-700" href="#"
             >Current favourite series: (<span id="series-counter">0</span>)
           </a>
@@ -47,7 +68,10 @@
       <h1 class="font-rockwell text-4xl text-center font-bold mt-6">
         Favorite TV series
       </h1>
-      <div class="grid grid-cols-4 gap-8 py-6" id="tv-series-container"></div>
+      <div
+        class="grid sm:grid-cols-2 md:grid-cols-4 gap-8 py-6"
+        id="tv-series-container"
+      ></div>
     </main>
 
     <footer class="w-full bg-stone-300 py-5 px-[10%]">
